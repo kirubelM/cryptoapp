@@ -19,8 +19,9 @@ const App = () => {
       <div className="main">
         <Layout>
           <div className="routes">
+            {/* <Homepage /> */}
             <Routes>
-              <Route exact path="/Homepage" element={<Homepage />}></Route>
+              <Route exact path="/home" element={<Homepage />}></Route>
               <Route exact path="/exchanges" element={<Exchanges />}></Route>
               <Route
                 exact
@@ -41,7 +42,7 @@ const App = () => {
             Cryptopia <br /> All rights reserved
           </Typography.Title>
           <Space>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
             <Link to="/exchanges">Exchanges</Link>
             <Link to="/news">News</Link>
           </Space>
