@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import millify from 'millify';
 import { Col, Row, Typography } from 'antd';
 import { MoneyCollectOutlined, DollarCircleOutlined, FundOutlined, ExclamationCircleOutlined, StopOutlined, TrophyOutlined, CheckOutlined, NumberOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import Loader from './Loader'
 
 import { useGetCryptoDetailsQuery } from '../services/cryptoApi';
 // import {  useGetCryptoHistoryQuery } from '../services/cryptoApi';
@@ -20,7 +21,7 @@ const CryptoDetails = () => {
   // const { data: coinHistory } = useGetCryptoHistoryQuery({ coinId, timeperiod });
   const cryptoDetails = data?.data?.coin;
 
-  if (isFetching) return "Loading...";
+  if (isFetching) return <Loader />;
   if (!cryptoDetails) {
     return <div>Loading...</div>;
   }
