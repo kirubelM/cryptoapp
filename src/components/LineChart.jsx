@@ -2,6 +2,8 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Col, Row, Typography } from 'antd';
+// import 'chartjs-adapter-date-fns';
+// import 'chartjs-adapter-moment';
 
 const { Title } = Typography;
 
@@ -31,14 +33,13 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
 
   const options = {
     scales: {
-      x: {
-        adapter: require('chartjs-adapter-date-fns'), // Use the date-fns adapter
-      },
-      y: {
-        ticks: {
-          beginAtZero: true,
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
         },
-      },
+      ],
     },
   };
 
@@ -51,7 +52,7 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
           <Title level={5} className="current-price">Current {coinName} Price: $ {currentPrice}</Title>
         </Col>
       </Row>
-      <Line data={data} options={options} />
+      {/* <Line data={data} /> */}
     </>
   );
 };
