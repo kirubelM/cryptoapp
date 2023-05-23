@@ -31,14 +31,13 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
 
   const options = {
     scales: {
-      x: {
-        adapter: require('chartjs-adapter-date-fns'), // Use the date-fns adapter
-      },
-      y: {
-        ticks: {
-          beginAtZero: true,
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
         },
-      },
+      ],
     },
   };
 
