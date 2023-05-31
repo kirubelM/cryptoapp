@@ -21,9 +21,9 @@ const Navbar = (props) => {
   return (
     <div className={`navbar ${isOpen && "open"}`} >
       <div className="left-nav">
+        <a href="/home"> <img src={icon} alt="cryptopia Logo" id="logo-img"></img></a>
       </div>
       <div className={`nav-items ${isOpen && "open"}`} >
-        <a href="/home"> <img src={icon} alt="cryptopia Logo" id="logo-img"></img></a>
         <a href="/home" onClick={closeNav} className='nav-item'>Home</a>
         <a href="/cryptocurrencies" onClick={closeNav} className='nav-item'>Cryptocurrencies</a>
         <a href="/exchanges" onClick={closeNav} className='nav-item'>Exchanges</a>
