@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Link, Routes } from "react-router-dom";
 import { Layout, Typography, Space } from "antd";
 import {
   Navbar,
@@ -11,14 +11,10 @@ import {
 } from "./components";
 import "./App.css";
 const App = () => {
-  const [navOpen, setNavOpen] = useState(false);
-  const changeNav = () => {
-    setNavOpen(!navOpen);
-  };
   return (
     <div className="app">
       {/* <div className="navbar"> */}
-      <Navbar handleNavClick={changeNav} />
+      <Navbar />
       {/* </div> */}
       <div className="main">
         <Layout>
@@ -31,33 +27,25 @@ const App = () => {
                 exact
                 path="/cryptocurrencies"
                 element={<Cryptocurrencies />}></Route>
-              <Route exact path="/news" element={<News />}></Route>
               <Route
                 exact
                 path="/crypto/:coinId"
                 element={<CryptoDetails />}></Route>
+              <Route exact path="/news" element={<News />}></Route>
             </Routes>
           </div>
         </Layout>
         <div className="footer">
-          <Space>
-            <a href="/home">Home | </a>
-            <a href="/cryptocurrencies">Cryptocurrencies | </a>
-            <a href="/exchanges">Exchanges | </a>
-            <a href="/news">News</a>
-          </Space>
-          <br></br>
           <Typography.Title
-            className="footer-rights"
             level={5}
-            style={{
-              fontFamily: "Arial",
-              fontWeight: "100",
-              color: "white",
-              textAlign: "center",
-            }}>
-            &#169; 2023 Cryptopia, All rights reserved
+            style={{ color: "white", textAlign: "center" }}>
+            Cryptopia <br /> All rights reserved
           </Typography.Title>
+          <Space>
+            <Link to="/home">Home</Link>
+            <Link to="/exchanges">Exchanges</Link>
+            <Link to="/news">News</Link>
+          </Space>
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ const Cryptocurrencies = ({ simplified }) => {
     setCryptos(filteredData);
   }, [cryptosList, searchTerm]);
 
-  if (isFetching) return "Loading..."
+  if (isFetching) return <Loader />
   return (
     <>
       {!simplified && (<div className='search-crypto'>
@@ -27,7 +27,7 @@ const Cryptocurrencies = ({ simplified }) => {
         {cryptos?.map((currency) => (
           <Col xs={24} sm={12} LG={6} className='crypto-card' key={currency.uuid}>
             <Link to={`/crypto/${currency.uuid}`}>
-              <Card
+              <Card className='coin-info'
                 title={`${currency.rank}. ${currency.name}`}
                 extra={<img className="crypto-image" src={currency.iconUrl} alt='crypto logo' />}
                 hoverable

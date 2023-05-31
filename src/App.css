@@ -1,9 +1,9 @@
 :root {
   --text-primary: #000;
   --bgPrimary: #fff;
-  --bgSecondary: #f9f9f9;
-  --pink: #0071bd;
-  --light-blue: #e6f7ff;
+  --bgSecondary: #1e88e5;
+  --pink: #1e88e5;
+  --light-blue: #d9fede;
   --border: #d9d9d9;
 }
 
@@ -13,40 +13,47 @@
   box-sizing: border-box;
 }
 
-a:hover {
-  color: var(--pink) !important;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e44545;
+  color: #fff;
+  padding: 10px;
 }
 
 .app {
   display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
-.navbar {
-  flex: 0.2;
-  background-color: rgb(64, 163, 255);
+Menu {
+  background-color: var(--bgSecondary);
 }
 
+.logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.nav-menus {
+  display: flex;
+}
 .main {
-  flex: 0.8;
+  flex: 0.9;
   width: 100%;
 }
 .routes {
   padding: 20px;
 }
-.nav-container {
-  position: fixed;
-  left: 0;
-  margin: 10px;
-  height: 100vh;
-  margin: 0px;
-  background-color: rgb(64, 163, 255);
-}
 
 .logo-container {
-  background-color: #001529ce;
+  background-color: var(--bgSecondary);
   display: flex;
   padding: 20px;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
@@ -316,15 +323,6 @@ a:hover {
   margin-left: 10px;
 }
 
-.chart-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  color: #0071bd;
-}
-.chart-title {
-  color: #0071bd !important;
-}
 .price-container {
   display: flex !important;
   gap: 20px !important;
@@ -360,6 +358,9 @@ a:hover {
 .crypto-card {
   min-width: 250px;
 }
+.coin-info {
+  background-color: var(--light-blue);
+}
 .crypto-card .crypto-image {
   width: 35px;
 }
@@ -369,9 +370,17 @@ a:hover {
 }
 
 .footer {
-  background-color: rgb(64, 163, 255);
+  background-color: var(--bgSecondary);
   display: flex;
   flex-direction: column;
   padding: 20px;
   align-items: center;
+  color: white;
+  font-family: Arial;
+}
+
+a,
+#footer-rights {
+  color: white;
+  font-family: Arial;
 }
