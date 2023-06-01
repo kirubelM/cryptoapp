@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Layout, Typography, Space } from "antd";
+import { Typography, Space, Layout } from "antd";
+
 import {
   Navbar,
   Exchanges,
@@ -9,23 +10,23 @@ import {
   CryptoDetails,
   News,
 } from "./components";
+
 import "./App.css";
+
 const App = () => {
   const [navOpen, setNavOpen] = useState(false);
   const changeNav = () => {
     setNavOpen(!navOpen);
   };
+
   return (
     <div className="app">
-      {/* <div className="navbar"> */}
       <Navbar handleNavClick={changeNav} />
-      {/* </div> */}
       <div className="main">
         <Layout>
           <div className="routes">
-            {/* <Homepage /> */}
             <Routes>
-              <Route exact path="/home" element={<Homepage />}></Route>
+              <Route exact path="/homepage" element={<Homepage />}></Route>
               <Route exact path="/exchanges" element={<Exchanges />}></Route>
               <Route
                 exact
@@ -39,7 +40,7 @@ const App = () => {
             </Routes>
           </div>
         </Layout>
-        <Homepage />
+        {/* <Homepage /> */}
         <div className="footer">
           <Space>
             <a href="/home">Home | </a>
