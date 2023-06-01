@@ -31,34 +31,35 @@ const App = () => {
                 exact
                 path="/cryptocurrencies"
                 element={<Cryptocurrencies />}></Route>
-              <Route exact path="/news" element={<News />}></Route>
               <Route
                 exact
                 path="/crypto/:coinId"
                 element={<CryptoDetails />}></Route>
+              <Route exact path="/news" element={<News />}></Route>
             </Routes>
           </div>
         </Layout>
-      </div>
-      <div className="footer">
-        <Space>
-          <a href="/home">Home | </a>
-          <a href="/cryptocurrencies">Cryptocurrencies | </a>
-          <a href="/exchanges">Exchanges | </a>
-          <a href="/news">News</a>
-        </Space>
-        <br></br>
-        <Typography.Title
-          className="footer-rights"
-          level={5}
-          style={{
-            fontFamily: "Arial",
-            fontWeight: "100",
-            color: "white",
-            textAlign: "center",
-          }}>
-          &#169; 2023 Cryptopia, All rights reserved
-        </Typography.Title>
+        <Homepage />
+        <div className="footer">
+          <Space>
+            <a href="/home">Home | </a>
+            <a href="/cryptocurrencies">Cryptocurrencies | </a>
+            <a href="/exchanges">Exchanges | </a>
+            <a href="/news">News</a>
+          </Space>
+          <br></br>
+          <Typography.Title
+            className="footer-rights"
+            level={5}
+            style={{
+              fontFamily: "Arial",
+              fontWeight: "100",
+              color: "white",
+              textAlign: "center",
+            }}>
+            &#169; 2023 Cryptopia, All rights reserved
+          </Typography.Title>
+        </div>
       </div>
     </div>
   );

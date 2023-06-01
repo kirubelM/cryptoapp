@@ -27,7 +27,6 @@ header {
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
-
   overflow: hidden;
 }
 
@@ -46,7 +45,6 @@ Menu {
 }
 .main {
   flex: 0.9;
-  /* width: 100%; */
   margin: 0 50px;
 }
 .routes {
@@ -114,7 +112,6 @@ Menu {
 
   .main {
     flex: 1;
-    /* margin-top: 90px; */
     margin-left: 0px;
     margin-right: 10px;
   }
@@ -268,9 +265,8 @@ Menu {
 
 .coin-link:hover,
 .coin-stats:hover {
-  background-color: var(--bgSecondary);
+  background-color: #d9d9d9;
 }
-
 @media screen and (max-width: 1000px) {
   .stats-container {
     flex-direction: column;
@@ -294,6 +290,9 @@ Menu {
 @media screen and (max-width: 500px) {
   .heading {
     margin-top: 20px;
+  }
+  .footer > Space > a {
+    gap: 2px;
   }
 }
 
@@ -321,9 +320,7 @@ Menu {
   color: black;
   margin: 10px 0px !important;
 }
-.news-col {
-  /* background-color: #e0a40d; */
-}
+
 .provider-container {
   display: flex;
   justify-content: space-between;
@@ -386,7 +383,6 @@ Menu {
   align-items: center;
   color: white;
   font-family: Arial;
-  /* min-width: 100%; */
 }
 
 a,

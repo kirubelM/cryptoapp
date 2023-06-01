@@ -33,16 +33,12 @@
   height: 50px;
   padding-left: 1.5rem;
   padding-top: 0.2rem;
-  /* margin-right: 1rem; */
 }
 
 #logo-typo {
   color: #fff;
   font-size: 2rem;
   text-decoration: none;
-  /* padding-bottom: 2rem; */
-  /* margin: 15px; */
-  /* position: relative; */
   opacity: 0.9;
   font-weight: 900;
   font-family: sans-serif;
@@ -86,10 +82,16 @@
 .bar {
   display: none;
 }
+@media (max-width: 480px) {
+  .left-nav {
+    width: 75%;
+  }
+}
 @media (max-width: 700px) {
   .bar {
     display: block;
   }
+
   .navbar {
     justify-content: space-between;
   }
@@ -107,8 +109,6 @@
   .navbar.open {
     position: static;
     align-items: left;
-
-    /* margin-top: calc(100vh + var(--offset)); */
   }
   .navbar > .nav-items > a {
     color: #fff;
@@ -118,9 +118,6 @@
     margin: 15px;
     position: relative;
     opacity: 0.9;
-    /* text-transform: uppercase; */
-
-    /* text-align: center; */
   }
   .navbar > .nav-items {
     position: absolute;
