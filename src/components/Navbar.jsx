@@ -22,17 +22,20 @@ const Navbar = (props) => {
     <div className={`navbar ${isOpen && "open"}`} >
       <div className="left-nav">
         <a href="/home"> <img src={icon} alt="cryptopia Logo" id="logo-img"></img></a>
+        <a href="/home" className='logo-name'>CRYPTOPIA</a>
+
+      </div>
+
+      <div className={`nav-toggle ${isOpen && "open"}`} onClick={handleNavClick}>
+        <div className="bar">
+
+        </div>
       </div>
       <div className={`nav-items ${isOpen && "open"}`} >
         <a href="/home" onClick={closeNav} className='nav-item'>Home</a>
         <a href="/cryptocurrencies" onClick={closeNav} className='nav-item'>Cryptocurrencies</a>
         <a href="/exchanges" onClick={closeNav} className='nav-item'>Exchanges</a>
         <a href="/news" onClick={closeNav} className='nav-item'>News</a>
-      </div>
-      <div className={`nav-toggle ${isOpen && "open"}`} onClick={handleNavClick}>
-        <div className="bar">
-
-        </div>
       </div>
     </div >
     // <div className={`navbar ${isOpen && "open"}`} >

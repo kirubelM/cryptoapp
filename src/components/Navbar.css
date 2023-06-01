@@ -5,11 +5,12 @@
   --pink: #00bd3f;
   --light-blue: #d4fbf0;
   --border: #d9d9d9;
+  --card: #faedcd;
 }
 .navbar {
   height: 60px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   background-color: var(--bgSecondary);
   position: sticky;
@@ -19,6 +20,13 @@
 .left-nav {
   display: flex;
   align-items: center;
+}
+.logo-name {
+  text-decoration: none;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: light;
+  font-size: 1.5rem;
+  margin-left: 5px;
 }
 #logo-img {
   width: 70px;

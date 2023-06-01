@@ -5,6 +5,7 @@
   --pink: #1e88e5;
   --light-blue: #d9fede;
   --border: #d9d9d9;
+  --card: #faedcd;
 }
 
 * {
@@ -25,6 +26,8 @@ header {
 .app {
   display: flex;
   flex-direction: column;
+  background-color: #f5f5f5;
+
   overflow: hidden;
 }
 
@@ -43,7 +46,8 @@ Menu {
 }
 .main {
   flex: 0.9;
-  width: 100%;
+  /* width: 100%; */
+  margin: 0 50px;
 }
 .routes {
   padding: 20px;
@@ -298,6 +302,8 @@ Menu {
 }
 .news-card {
   min-height: 300px !important;
+  background-color: #fcf6e7;
+  box-shadow: inset;
 }
 .news-image-container {
   display: flex !important;
@@ -314,6 +320,9 @@ Menu {
 .news-card p {
   color: black;
   margin: 10px 0px !important;
+}
+.news-col {
+  /* background-color: #e0a40d; */
 }
 .provider-container {
   display: flex;
@@ -377,6 +386,7 @@ Menu {
   align-items: center;
   color: white;
   font-family: Arial;
+  /* min-width: 100%; */
 }
 
 a,

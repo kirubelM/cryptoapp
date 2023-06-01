@@ -39,26 +39,26 @@ const App = () => {
             </Routes>
           </div>
         </Layout>
-        <div className="footer">
-          <Space>
-            <a href="/home">Home | </a>
-            <a href="/cryptocurrencies">Cryptocurrencies | </a>
-            <a href="/exchanges">Exchanges | </a>
-            <a href="/news">News</a>
-          </Space>
-          <br></br>
-          <Typography.Title
-            className="footer-rights"
-            level={5}
-            style={{
-              fontFamily: "Arial",
-              fontWeight: "100",
-              color: "white",
-              textAlign: "center",
-            }}>
-            &#169; 2023 Cryptopia, All rights reserved
-          </Typography.Title>
-        </div>
+      </div>
+      <div className="footer">
+        <Space>
+          <a href="/home">Home | </a>
+          <a href="/cryptocurrencies">Cryptocurrencies | </a>
+          <a href="/exchanges">Exchanges | </a>
+          <a href="/news">News</a>
+        </Space>
+        <br></br>
+        <Typography.Title
+          className="footer-rights"
+          level={5}
+          style={{
+            fontFamily: "Arial",
+            fontWeight: "100",
+            color: "white",
+            textAlign: "center",
+          }}>
+          &#169; 2023 Cryptopia, All rights reserved
+        </Typography.Title>
       </div>
     </div>
   );
