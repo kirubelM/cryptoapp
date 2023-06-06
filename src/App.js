@@ -4,7 +4,8 @@ import { Typography, Space, Layout } from "antd";
 
 import {
   Navbar,
-  Exchanges,
+  Portfolio,
+  AddCoinForm,
   Homepage,
   Cryptocurrencies,
   CryptoDetails,
@@ -14,6 +15,11 @@ import {
 import "./App.css";
 
 const App = () => {
+  const [portfolio, setPortfolio] = useState([]);
+  const addCoin = (coin) => {
+    setPortfolio([...portfolio, coin]);
+  };
+
   const [navOpen, setNavOpen] = useState(false);
   const changeNav = () => {
     setNavOpen(!navOpen);
@@ -29,7 +35,7 @@ const App = () => {
               <Route exact path="/" element={<Homepage />}></Route>
 
               <Route exact path="/homepage" element={<Homepage />}></Route>
-              <Route exact path="/exchanges" element={<Exchanges />}></Route>
+              {/* <Route exact path="/exchanges" element={<Exchanges />}></Route> */}
               <Route
                 exact
                 path="/cryptocurrencies"
@@ -39,30 +45,33 @@ const App = () => {
                 path="/crypto/:coinId"
                 element={<CryptoDetails />}></Route>
               <Route exact path="/news" element={<News />}></Route>
+              <Route exact path="/Portfolio" element={<Portfolio />}></Route>
             </Routes>
           </div>
         </Layout>
         {/* <Homepage /> */}
-        <div className="footer">
-          <Space>
-            <a href="/homepage">Home | </a>
-            <a href="/cryptocurrencies">Cryptocurrencies | </a>
-            <a href="/exchanges">Exchanges | </a>
-            <a href="/news">News</a>
-          </Space>
-          <br></br>
-          <Typography.Title
-            className="footer-rights"
-            level={5}
-            style={{
-              fontFamily: "Arial",
-              fontWeight: "100",
-              color: "white",
-              textAlign: "center",
-            }}>
-            &#169; 2023 Cryptopia, All rights reserved
-          </Typography.Title>
-        </div>
+      </div>
+      <AddCoinForm addCoin={addCoin} />
+      <Portfolio portfolio={portfolio} />
+      <div className="footer">
+        <Space>
+          <a href="/homepage">Home | </a>
+          <a href="/cryptocurrencies">Cryptocurrencies | </a>
+          <a href="/exchanges">Exchanges | </a>
+          <a href="/news">News</a>
+        </Space>
+        <br></br>
+        <Typography.Title
+          className="footer-rights"
+          level={5}
+          style={{
+            fontFamily: "Arial",
+            fontWeight: "100",
+            color: "white",
+            textAlign: "center",
+          }}>
+          &#169; 2023 Cryptopia, All rights reserved
+        </Typography.Title>
       </div>
     </div>
   );

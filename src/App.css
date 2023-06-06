@@ -292,10 +292,17 @@ Menu {
     margin-top: 20px;
   }
   .footer > Space > a {
-    gap: 2px;
+    width: 75%;
   }
 }
-
+@media screen and (max-width: 380px) {
+  .heading {
+    margin-top: 20px;
+  }
+  .footer > Space > a {
+    width: 75%;
+  }
+}
 .select-news {
   width: 180px;
 }
