@@ -15,10 +15,7 @@ import {
 import "./App.css";
 
 const App = () => {
-  const [portfolio, setPortfolio] = useState([]);
-  const addCoin = (coin) => {
-    setPortfolio([...portfolio, coin]);
-  };
+  const [currentPortfolio, setCurrentPortfolio] = useState([]);
 
   const [navOpen, setNavOpen] = useState(false);
   const changeNav = () => {
@@ -51,8 +48,8 @@ const App = () => {
         </Layout>
         {/* <Homepage /> */}
       </div>
-      <AddCoinForm addCoin={addCoin} />
-      <Portfolio portfolio={portfolio} />
+      {/* <AddCoinForm addCoin={addCoin} /> */}
+      {/* <Portfolio portfolio={currentPortfolio} /> */}
       <div className="footer">
         <Space>
           <a href="/homepage">Home | </a>

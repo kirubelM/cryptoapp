@@ -10,11 +10,7 @@ import { useGetCryptosQuery } from '../services/cryptoApi'
 const { Text, Title } = Typography;
 const { Option } = Select;
 const demoImage = "http://coinrevolution.com/wp-content/uploads/2020/06/cryptonews.jpg"
-
-
-
 const News = ({ simplified }) => {
-
   const [newsCategory, setNewsCategory] = useState('Cryptocurrency');
   const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory, count: simplified ? 6 : 20 })
   const { data } = useGetCryptosQuery(100);

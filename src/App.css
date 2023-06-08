@@ -397,3 +397,8 @@ a,
   color: white;
   font-family: Arial;
 }
+
+.add-coin-card-container {
+  margin: 10px;
+  background-color: #d9fede;
+}
