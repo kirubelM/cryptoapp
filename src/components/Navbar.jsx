@@ -31,6 +31,7 @@ const Navbar = (props) => {
         <a href="/cryptocurrencies" onClick={closeNav} className='nav-item'>Cryptocurrencies</a>
         <a href="/news" onClick={closeNav} className='nav-item'>News</a>
         <a href="/portfolio" onClick={closeNav} className='nav-item'>Portfolio</a>
+        <a href="/portfolio" onClick={closeNav} className='nav-item'>Login</a>
       </div>
     </div >
   )

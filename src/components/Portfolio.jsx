@@ -51,6 +51,7 @@ const Portfolio = ({ currentPortfolio }) => {
   console.log("FINAL PRICE:", selectedPrice, selectedCoin)
   return (
     <div>
+      <PortfolioTracker />
       {/* {selectedPrice ? ( */}
       <Typography>Search to add coin to portfolio</Typography>
       {/* ) : (
