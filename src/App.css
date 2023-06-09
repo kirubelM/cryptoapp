@@ -401,4 +401,44 @@ a,
 .add-coin-card-container {
   margin: 10px;
   background-color: #d9fede;
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+}
+
+#coin-buy-button {
+  background-color: #a1e9ab;
+}
+#coin-sell-button {
+  background-color: #f73939;
+  margin-left: 5px;
+}
+
+#coin-buy-button:hover {
+  margin-right: 5px;
+  color: white;
+}
+#coin-sell-button:hover {
+  margin-right: 10px;
+  color: white;
+}
+.right-div {
+  display: flex;
+  align-items: center;
+}
+.buy-sell-buttons {
+  margin: 10px;
+}
+.add-transaction-coin-detail {
+  display: flex;
+  flex-direction: row;
+}
+
+Modal {
+  align-items: center;
+}
+.my-input-number {
+  width: 120px;
 }
