@@ -436,9 +436,17 @@ a,
   flex-direction: row;
 }
 
-Modal {
-  align-items: center;
+.modal {
+  padding: 10px;
+  display: flex;
 }
-.my-input-number {
+#transaction-input {
   width: 120px;
+}
+.portfolio-inputs {
+  /* margin-right: 5px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 5px;
 }

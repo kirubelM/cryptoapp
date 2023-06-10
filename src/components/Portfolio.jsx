@@ -3,8 +3,8 @@ import {
   Select,
   Card,
   Row,
-  Col,
-  InputNumber,
+  Statistic,
+  Input,
   Typography,
   Button,
   Modal,
@@ -15,12 +15,12 @@ const Portfolio = ({ currentPortfolio }) => {
   const [searchedCoin, setSearchedCoin] = useState(null); //State of coin searched and selected to add to portfolio
   const [searchedPrice, setSearchedPrice] = useState(null); //State of price of the coin searched and selected to add to portfolio
   const [coinsList, SetCoinsList] = useState([]); //List of coins fetched from api
-  const [coinsInPortfolio, setCoinsInPortfolio] = useState([]);
+  const [coinsInPortfolio, setCoinsInPortfolio] = useState({});//coin name,coin,amount,current price, buy price
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCoin, setSelectedCoin] = useState(null);
-  const [selectedPrice, setSselectedPrice] = useState(null);
-  const [quantity, setQuantity] = useState(0);
-
+  const [selectedCoin, setSelectedCoin] = useState(null); //coin selected: Buy/Sell
+  const [transactionPrice, setTransactionPrice] = useState(87);
+  const [transactionQuantity, setTransactionQuantity] = useState(1);
+  const [portfolioBalance, setPortfolioBalance] = useState(0);
   useEffect(() => {
     const fetchCoins = async () => {
       try {
@@ -33,14 +33,15 @@ const Portfolio = ({ currentPortfolio }) => {
       }
     };
     fetchCoins();
-  }, []);
+  }, [coinsInPortfolio]);
 
   useEffect(() => {
     if (searchedPrice) {
-      setCoinsInPortfolio((prevCoinsInPortfolio) => [
-        ...prevCoinsInPortfolio,
-        [searchedCoin, searchedPrice],
-      ]);
+      setCoinsInPortfolio((prevCoinsInPortfolio) =>
+        Object.assign({}, prevCoinsInPortfolio, {
+          [searchedCoin]: [searchedCoin, searchedPrice, 0, 0, 0],
+        })
+      );
     }
   }, [searchedPrice]);
 
@@ -53,8 +54,8 @@ const Portfolio = ({ currentPortfolio }) => {
       if (coinData) {
         const { usd } = coinData;
         const formattedNumber = new Intl.NumberFormat("en-US", {
-          minimumFractionDigits: 10,
-          maximumFractionDigits: 10,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 8,
         }).format(usd);
         setSearchedPrice(formattedNumber);
       } else {
@@ -77,6 +78,27 @@ const Portfolio = ({ currentPortfolio }) => {
     setIsModalVisible(true);
     setSelectedCoin(value);
   };
+  const handleModalSubmit = () => {
+    let currentTransactionPrice = parseFloat(parseInt(transactionPrice ? transactionPrice : coinsInPortfolio[selectedCoin]?.[1]))
+    let currentTransactionQuantity = parseFloat(transactionQuantity);
+    console.log("price", currentTransactionPrice, "quantity", currentTransactionQuantity);
+    setPortfolioBalance((prevPortfolioBalance) => prevPortfolioBalance + (currentTransactionPrice * currentTransactionQuantity));
+    setCoinsInPortfolio((prevCoinsInPortfolio) => {
+      const newCoinsInPortfolio = { ...prevCoinsInPortfolio };
+      newCoinsInPortfolio[selectedCoin][2] = currentTransactionQuantity;
+      return newCoinsInPortfolio;
+    });
+    console.log("aw aw: ", (currentTransactionPrice));
+    setIsModalVisible(false)
+  }
+  const handleDeleteCoin = (keyToDelete) => {
+    setCoinsInPortfolio((prevCoinsInPortfolio) => {
+      const newCoinsInPortfolio = { ...prevCoinsInPortfolio };
+      delete newCoinsInPortfolio[keyToDelete];
+      return newCoinsInPortfolio;
+    });
+  };
+  // console.log("balance", transactionPrice, "end");
   return (
     <div>
       <Modal
@@ -88,13 +110,30 @@ const Portfolio = ({ currentPortfolio }) => {
         cancelButtonProps={{ style: { backgroundColor: '#58da69', color: '#fff' } }}
         okButtonProps={{ style: { backgroundColor: '#f73939' } }}
         onOk={() => setIsModalVisible(false)}
-        onCancel={() => setIsModalVisible(false)}
+        onCancel={handleModalSubmit}
         reverseButton={false}
+        forceRender={true}
       >
-        <p>Selected Coin: <b>{selectedCoin ? selectedCoin[0] : ""}</b></p>
-        <p>Amount of Coin: <InputNumber size="small"></InputNumber></p>
-        <p>Coin Price: <InputNumber className="my-input-number" defaultValue={selectedCoin ? selectedCoin[1] : ""} size="small"></InputNumber></p>
-      </Modal>
+        <div className="portfolio-inputs">
+          <p>Coin: <b>{coinsInPortfolio[selectedCoin]?.[0]}</b></p>
+          <p><b>Amount of Coin</b> <Input id="transaction-input" size="small" onChange={(e) => setTransactionQuantity(e.target.value)}></Input></p>
+          <p><b>Coin Price</b> <Input id="transaction-input" value={transactionPrice || coinsInPortfolio[selectedCoin]?.[1]}
+            size="small"
+            placeholder="Enter quantity"
+            onChange={(e) => {
+              console.log("transactionPrice changed:", e.target.value);
+              setTransactionPrice(e.target.value);
+            }}
+          ></Input></p>
+        </div>
+      </Modal >
+      <Statistic title="Portfolio Balance in USD"
+        value={portfolioBalance}
+        precision={2}
+        valueStyle={{ color: '#3f8600' }}
+        prefix="$">
+      </Statistic>
+      <br></br>
       <Typography>Search to add coin to portfolio</Typography>
       <Select
         showSearch
@@ -110,33 +149,44 @@ const Portfolio = ({ currentPortfolio }) => {
           </Select.Option>
         ))}
       </Select>
-      {searchedCoin &&
-        coinsInPortfolio.map((coin) => (
+      {
+        coinsInPortfolio &&
+        Object.entries(coinsInPortfolio).map(([key, values]) => (
           <div className="add-coin-card-container">
             <div>
-              <h2>{coin[0]}</h2>
+              <h2>{key}</h2>
             </div>
             <div className="right-div">
-              <p>$ {coin[1]}</p>
+              <p>$ {values[1]}</p>
               <div className="buy-sell-buttons">
                 <Button
                   id="coin-buy-button"
-                  onClick={() => handleBuy(coin)}
-                  placeholder="Enterquantity">
+                  onClick={() => handleBuy(key)}
+                  placeholder="Enterquantity"
+                >
                   Buy
                 </Button>
                 <Button
                   id="coin-sell-button"
-                  onClick={() => handleSell(coin)}
+                  onClick={() => handleSell(key)}
                   placeholder="Enterquantity"
                 >
                   Sell
                 </Button>
+                <Button
+                  id="coin-sell-button"
+                  onClick={() => handleDeleteCoin(key)}
+                  placeholder="Enterquantity"
+                >
+                  delete
+                </Button>
               </div>
             </div>
           </div>
-        ))}
-    </div>
+        ))
+      }
+
+    </div >
   );
 };
 

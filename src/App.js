@@ -48,13 +48,11 @@ const App = () => {
         </Layout>
         {/* <Homepage /> */}
       </div>
-      {/* <AddCoinForm addCoin={addCoin} /> */}
-      {/* <Portfolio portfolio={currentPortfolio} /> */}
       <div className="footer">
         <Space>
           <a href="/homepage">Home | </a>
           <a href="/cryptocurrencies">Cryptocurrencies | </a>
-          <a href="/exchanges">Exchanges | </a>
+          <a href="/portfolio">Portfolio | </a>
           <a href="/news">News</a>
         </Space>
         <br></br>
