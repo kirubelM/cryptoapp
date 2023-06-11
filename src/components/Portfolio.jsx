@@ -18,9 +18,10 @@ const Portfolio = ({ currentPortfolio }) => {
   const [coinsInPortfolio, setCoinsInPortfolio] = useState({});//coin name,coin,amount,current price, buy price
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState(null); //coin selected: Buy/Sell
-  const [transactionPrice, setTransactionPrice] = useState(87);
+  const [transactionPrice, setTransactionPrice] = useState();
   const [transactionQuantity, setTransactionQuantity] = useState(1);
   const [portfolioBalance, setPortfolioBalance] = useState(0);
+  const [transactionType, setTransactionType] = useState("");
   useEffect(() => {
     const fetchCoins = async () => {
       try {
@@ -56,8 +57,8 @@ const Portfolio = ({ currentPortfolio }) => {
         const formattedNumber = new Intl.NumberFormat("en-US", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 8,
-        }).format(usd);
-        setSearchedPrice(formattedNumber);
+        }).format(Number(usd));
+        setSearchedPrice(usd);
       } else {
         console.log("Price data not available for the selected coin.");
       }
@@ -72,24 +73,43 @@ const Portfolio = ({ currentPortfolio }) => {
   };
   const handleBuy = (value) => {
     setIsModalVisible(true);
+    setTransactionType("BUY")
     setSelectedCoin(value);
   };
   const handleSell = (value) => {
     setIsModalVisible(true);
+    setTransactionType("SELL")
     setSelectedCoin(value);
   };
   const handleModalSubmit = () => {
-    let currentTransactionPrice = parseFloat(parseInt(transactionPrice ? transactionPrice : coinsInPortfolio[selectedCoin]?.[1]))
+    let currentTransactionPrice = ((transactionPrice ? transactionPrice : coinsInPortfolio[selectedCoin]?.[1]))
     let currentTransactionQuantity = parseFloat(transactionQuantity);
-    console.log("price", currentTransactionPrice, "quantity", currentTransactionQuantity);
+    // console.log("price", currentTransactionPrice, "quantity", currentTransactionQuantity);
+    if (transactionType === "BUY")
+      handleBuyCalc(currentTransactionPrice, currentTransactionQuantity);
+    else
+      handleSellCalc(currentTransactionPrice, currentTransactionQuantity);
+    setTransactionType("");
+    setIsModalVisible(false)
+  }
+
+  const handleBuyCalc = (currentTransactionPrice, currentTransactionQuantity) => {
     setPortfolioBalance((prevPortfolioBalance) => prevPortfolioBalance + (currentTransactionPrice * currentTransactionQuantity));
     setCoinsInPortfolio((prevCoinsInPortfolio) => {
       const newCoinsInPortfolio = { ...prevCoinsInPortfolio };
-      newCoinsInPortfolio[selectedCoin][2] = currentTransactionQuantity;
+      let newQuantity = newCoinsInPortfolio[selectedCoin][2] + currentTransactionQuantity;
+      newCoinsInPortfolio[selectedCoin][2] = newQuantity;
       return newCoinsInPortfolio;
     });
-    console.log("aw aw: ", (currentTransactionPrice));
-    setIsModalVisible(false)
+  }
+  const handleSellCalc = (currentTransactionPrice, currentTransactionQuantity) => {
+    setPortfolioBalance((prevPortfolioBalance) => prevPortfolioBalance - (currentTransactionPrice * currentTransactionQuantity));
+    setCoinsInPortfolio((prevCoinsInPortfolio) => {
+      const newCoinsInPortfolio = { ...prevCoinsInPortfolio };
+      let newQuantity = newCoinsInPortfolio[selectedCoin][2] - currentTransactionQuantity;
+      newCoinsInPortfolio[selectedCoin][2] = newQuantity;
+      return newCoinsInPortfolio;
+    });
   }
   const handleDeleteCoin = (keyToDelete) => {
     setCoinsInPortfolio((prevCoinsInPortfolio) => {
@@ -128,7 +148,7 @@ const Portfolio = ({ currentPortfolio }) => {
         </div>
       </Modal >
       <Statistic title="Portfolio Balance in USD"
-        value={portfolioBalance}
+        value={portfolioBalance < 1 ? 0 : (portfolioBalance)}
         precision={2}
         valueStyle={{ color: '#3f8600' }}
         prefix="$">
