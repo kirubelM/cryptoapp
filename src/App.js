@@ -10,12 +10,13 @@ import {
   Cryptocurrencies,
   CryptoDetails,
   News,
+  PortfolioHeader,
 } from "./components";
 
 import "./App.css";
 
 const App = () => {
-  const [currentPortfolio, setCurrentPortfolio] = useState([]);
+  const [portfolioBalance, setPortfolioBalance] = useState(0);
 
   const [navOpen, setNavOpen] = useState(false);
   const changeNav = () => {
@@ -46,6 +47,7 @@ const App = () => {
             </Routes>
           </div>
         </Layout>
+        {/* <PortfolioHeader /> */}
         {/* <Homepage /> */}
       </div>
       <div className="footer">
