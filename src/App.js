@@ -11,9 +11,11 @@ import {
   CryptoDetails,
   News,
   PortfolioHeader,
+  LoginButton,
 } from "./components";
 
 import "./App.css";
+// import LoginButton from "./components/LoginButton";
 
 const App = () => {
   const [portfolioBalance, setPortfolioBalance] = useState(0);
@@ -22,7 +24,9 @@ const App = () => {
   const changeNav = () => {
     setNavOpen(!navOpen);
   };
-
+  {
+    console.log("aa", process.env.REACT_APP_AUTH0_DOMAIN);
+  }
   return (
     <div className="app">
       <Navbar handleNavClick={changeNav} />
@@ -53,8 +57,8 @@ const App = () => {
       <div className="footer">
         <Space>
           <a href="/homepage">Home | </a>
-          <a href="/cryptocurrencies">Cryptocurrencies | </a>
           <a href="/portfolio">Portfolio | </a>
+          <a href="/cryptocurrencies">Cryptocurrencies | </a>
           <a href="/news">News</a>
         </Space>
         <br></br>

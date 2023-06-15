@@ -46,7 +46,7 @@ const CoinCard = ({ coinKey, values, handleBuy, handleSell, handleDeleteCoin, co
           </Button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -136,7 +136,7 @@ const Portfolio = () => {
     console.log(amount, coinsInPortfolio[selectedCoin][2])
     if (amount <= coinsInPortfolio[selectedCoin][2]) return true;
     else if (amount > coinsInPortfolio[selectedCoin][2]) {
-      setAlertMessage("You only have " + coinsInPortfolio[selectedCoin][2] + " " + selectedCoin + " in your portfolio!");
+      setAlertMessage("You only have " + String(coinsInPortfolio[selectedCoin][2]).slice(0, 6) + " " + selectedCoin + " in your portfolio!");
       return false;
     }
   }
@@ -149,7 +149,7 @@ const Portfolio = () => {
       });
       setShowAlert(false);
     } else if (coinsInPortfolio[keyToDelete][2] > 0) {
-      setAlertMessage(`Sell your ${selectedCoin} before you can delete it!`);
+      setAlertMessage(`Sell your ${keyToDelete} before you can delete it!`);
       setShowAlert(true);
     }
   };

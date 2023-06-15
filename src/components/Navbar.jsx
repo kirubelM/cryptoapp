@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import icon from '../img/logo.png'
 import "./Navbar.css";
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+import Profile from './Profile';
+import { useAuth0 } from '@auth0/auth0-react'
+import { Modal } from 'antd';
+import Loader from './Loader'
+
 const Navbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleNavClick = () => {
@@ -13,7 +20,7 @@ const Navbar = (props) => {
     setIsOpen(!isOpen);
     props.handleNavClick()
   }
-
+  const { isLoading, error } = useAuth0();
   return (
     <div className={`navbar ${isOpen && "open"}`} >
       <div className="left-nav">
@@ -31,7 +38,15 @@ const Navbar = (props) => {
         <a href="/cryptocurrencies" onClick={closeNav} className='nav-item'>Cryptocurrencies</a>
         <a href="/news" onClick={closeNav} className='nav-item'>News</a>
         <a href="/portfolio" onClick={closeNav} className='nav-item'>Portfolio</a>
-        <a href="/portfolio" onClick={closeNav} className='nav-item'>Login</a>
+        {error && <Modal>error</Modal>}
+        {!error && isLoading && <Loader />}
+        {!error && !isLoading && (
+          <div className='profile-container'>
+            <Profile />
+            <LogoutButton />
+            <LoginButton />
+          </div>
+        )}
       </div>
     </div >
   )
