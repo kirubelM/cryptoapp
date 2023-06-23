@@ -6,7 +6,7 @@ import CoinCard from "./CoinCard";
 import { Alert } from 'antd'
 import TransactionModal from "./TransactionModal";
 import { db } from '../firebase'
-const Portfolio = () => {
+const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
   const [searchedCoin, setSearchedCoin] = useState(null); //State of coin searched and selected to add to portfolio
   const [searchedPrice, setSearchedPrice] = useState(null); //State of price of the coin searched and selected to add to portfolio
   const [coinsList, setCoinsList] = useState([]); //List of coins fetched from api
@@ -31,6 +31,8 @@ const Portfolio = () => {
       }
     };
     fetchCoins();
+    onCoinsInPortfolio(coinsInPortfolio)
+
   }, [coinsInPortfolio]);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const Portfolio = () => {
           [searchedCoin]: [searchedCoin, searchedPrice, 0, 0, 0],
         })
       );
+      onCoinsInPortfolio(coinsInPortfolio)
     }
   }, [searchedPrice]);
 
@@ -80,6 +83,9 @@ const Portfolio = () => {
     setTransactionType("SELL");
     setSelectedCoin(value);
   };
+  useEffect(() => {
+    onPortfolioBalance(portfolioBalance)
+  }, [portfolioBalance])
 
   const handleModalSubmit = () => {
     let currentTransactionPrice = transactionPrice
@@ -110,28 +116,12 @@ const Portfolio = () => {
       newCoinsInPortfolio[selectedCoin][2] = newQuantity;
       return newCoinsInPortfolio;
     });
-
-
+    onCoinsInPortfolio(coinsInPortfolio)
+    onPortfolioBalance(portfolioBalance)
     setTransactionType("");
     setIsModalVisible(false);
   };
 
-  /*const handleBuyCalc = (currentTransactionPrice, currentTransactionQuantity) => {
-  
-  };
-  
-  const handleSellCalc = (currentTransactionPrice, currentTransactionQuantity) => {
-    setPortfolioBalance((prevPortfolioBalance) =>
-      prevPortfolioBalance - currentTransactionPrice * currentTransactionQuantity
-    );
-  
-    setCoinsInPortfolio((prevCoinsInPortfolio) => {
-      const newCoinsInPortfolio = { ...prevCoinsInPortfolio };
-      let newQuantity = newCoinsInPortfolio[selectedCoin][2] - currentTransactionQuantity;
-      newCoinsInPortfolio[selectedCoin][2] = newQuantity;
-      return newCoinsInPortfolio;
-    });
-  };*/
   const isSaleValid = (amount) => {
     console.log(amount, coinsInPortfolio[selectedCoin][2])
     if (amount <= coinsInPortfolio[selectedCoin][2]) return true;
@@ -147,6 +137,8 @@ const Portfolio = () => {
         delete newCoinsInPortfolio[keyToDelete];
         return newCoinsInPortfolio;
       });
+      onCoinsInPortfolio(coinsInPortfolio)
+
       setShowAlert(false);
     } else if (coinsInPortfolio[keyToDelete][2] > 0) {
       setAlertMessage(`Sell your ${keyToDelete} before you can delete it!`);

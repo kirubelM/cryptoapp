@@ -11,13 +11,10 @@ const LoginButton = () => {
 
   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims } = useAuth0();
   const [idToken, setIdToken] = useState(" ");
-  // const [userID, setUserID] = useState('');
   const [listOfUsers, setListOfUsers] = useState([idToken]);
   const usersCollectionRef = collection(db, "users");
   const [containsID, setContainsID] = useState(true);
-  // const [addedUser, setAddedUser] = useState(false);
-  // let count = 0;
-  ///////////////////////////////////////////////////////////////
+
   useEffect(() => {
     getToken()
   }, [isAuthenticated, user, idToken]);
@@ -25,7 +22,7 @@ const LoginButton = () => {
     try {
       const idTokenClaims = await getIdTokenClaims();
 
-      let temp = idTokenClaims.sub.toString().substring(14);
+      let temp = idTokenClaims.sub.toString();
       setIdToken(temp)
       console.log("getToken before", containsID, idToken, 9)
     } catch (error) {
@@ -33,7 +30,6 @@ const LoginButton = () => {
     }
   };
 
-  //////////////////////////////////////////////////////////
   useEffect(() => {
     getUsersList();
   }, [idToken,]);
@@ -42,11 +38,8 @@ const LoginButton = () => {
       const data = await getDocs(usersCollectionRef);
       const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const userIds = filteredData.map(user => user.userId.toString());
-
       console.log("User IDs", userIds);
-
       setListOfUsers(prevList => [...prevList, ...userIds]);
-
     } catch (err) {
       console.error(err);
     }
@@ -54,29 +47,24 @@ const LoginButton = () => {
     setListOfUsers(prevList => {
       // console.log("Updated list of users", prevList);
       // console.log("Does user exist : ", prevList.includes(idToken), idToken);
-
       if (!prevList.includes(idToken)) {
         addUser();
       }
-
       // Return the unchanged list, since we're not making any further updates here.
       return prevList;
     });
   }
 
   const addUser = async () => {
-    // if (count < 2 && !addedUser) {
     try {
       await addDoc(usersCollectionRef, {
         coinInPortfolio: { "portfolio": [0, 0, 0, 0, 0] },
         portfolioBalance: 4774,
         userId: idToken,
       });
-      // setAddedUser(!addedUser)
     } catch (err) {
       console.error(err);
     }
-    // }
   }
 
 

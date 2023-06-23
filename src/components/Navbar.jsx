@@ -9,6 +9,8 @@ import { Modal } from 'antd';
 import Loader from './Loader'
 
 const Navbar = (props) => {
+  const [coinsInPortfolio, setCoinsInPortfolio] = useState({});
+  const [portfolioBalance, setPortfolioBalance] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const handleNavClick = () => {
     setIsOpen(!isOpen);
