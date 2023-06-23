@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Typography, Space, Layout } from "antd";
+// import { Auth } from "./components/auth";
 
 import {
   Navbar,
@@ -25,7 +26,7 @@ const App = () => {
     setNavOpen(!navOpen);
   };
   {
-    console.log("aa", process.env.REACT_APP_AUTH0_DOMAIN);
+    // console.log("aa", process.env.REACT_APP_AUTH0_DOMAIN);
   }
   return (
     <div className="app">

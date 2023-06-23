@@ -12,6 +12,7 @@
     "antd": "^5.4.6",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
+    "firebase": "^9.22.2",
     "html-react-parser": "^3.0.16",
     "millify": "^6.1.0",
     "moment": "^2.29.4",

@@ -5,12 +5,12 @@ import SearchBar from "./SearchBar";
 import CoinCard from "./CoinCard";
 import { Alert } from 'antd'
 import TransactionModal from "./TransactionModal";
-
+import { db } from '../firebase'
 const Portfolio = () => {
   const [searchedCoin, setSearchedCoin] = useState(null); //State of coin searched and selected to add to portfolio
   const [searchedPrice, setSearchedPrice] = useState(null); //State of price of the coin searched and selected to add to portfolio
   const [coinsList, setCoinsList] = useState([]); //List of coins fetched from api
-  const [coinsInPortfolio, setCoinsInPortfolio] = useState({});//coin name,coin,amount,current price, buy price
+  const [coinsInPortfolio, setCoinsInPortfolio] = useState({});//coin name,searchedPrice, coin amount,current price, buy price
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState(null); //coin selected: Buy/Sell
   const [transactionPrice, setTransactionPrice] = useState();
