@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import icon from '../img/logo.png'
 import "./Navbar.css";
 import LoginButton from './LoginButton';
@@ -7,10 +7,10 @@ import Profile from './Profile';
 import { useAuth0 } from '@auth0/auth0-react'
 import { Modal } from 'antd';
 import Loader from './Loader'
+// import { AppContext } from "../App";
 
 const Navbar = (props) => {
-  const [coinsInPortfolio, setCoinsInPortfolio] = useState({});
-  const [portfolioBalance, setPortfolioBalance] = useState(0);
+
   const [isOpen, setIsOpen] = useState(false);
   const handleNavClick = () => {
     setIsOpen(!isOpen);

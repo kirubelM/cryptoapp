@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, Button } from "antd";
+import { AppContext } from "../App";
 
 const CoinCard = ({ coinKey, values, handleBuy, handleSell, handleDeleteCoin, coinsInPortfolio }) => {
+
   const handleBuyClick = () => {
     handleBuy(coinKey);
   };

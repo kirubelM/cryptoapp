@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import PortfolioHeader from "./PortfolioHeader";
 import SearchBar from "./SearchBar";
 import CoinCard from "./CoinCard";
 import { Alert } from 'antd'
 import TransactionModal from "./TransactionModal";
-import { db } from '../firebase'
-const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
-  const [searchedCoin, setSearchedCoin] = useState(null); //State of coin searched and selected to add to portfolio
-  const [searchedPrice, setSearchedPrice] = useState(null); //State of price of the coin searched and selected to add to portfolio
-  const [coinsList, setCoinsList] = useState([]); //List of coins fetched from api
-  const [coinsInPortfolio, setCoinsInPortfolio] = useState({});//coin name,searchedPrice, coin amount,current price, buy price
+import { AppContext } from "../App";
+
+const Portfolio = () => {
+  const { coinsInPortfolio, setCoinsInPortfolio, portfolioBalance, setPortfolioBalance, searchedCoin, setSearchedCoin, searchedPrice, setSearchedPrice, coinsList, setCoinsList } = useContext(AppContext);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState(null); //coin selected: Buy/Sell
   const [transactionPrice, setTransactionPrice] = useState();
-  const [transactionQuantity, setTransactionQuantity] = useState(1);
-  const [portfolioBalance, setPortfolioBalance] = useState(0);
+  const [transactionQuantity, setTransactionQuantity] = useState();
   const [transactionType, setTransactionType] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -31,8 +28,6 @@ const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
       }
     };
     fetchCoins();
-    onCoinsInPortfolio(coinsInPortfolio)
-
   }, [coinsInPortfolio]);
 
   useEffect(() => {
@@ -42,9 +37,9 @@ const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
           [searchedCoin]: [searchedCoin, searchedPrice, 0, 0, 0],
         })
       );
-      onCoinsInPortfolio(coinsInPortfolio)
     }
-  }, [searchedPrice]);
+    console.log("after:", coinsInPortfolio)
+  }, [searchedPrice, searchedCoin]);
 
   const fetchPrice = async (coin) => {
     try {
@@ -69,6 +64,7 @@ const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
 
   const handleSelectCoin = (value) => {
     setSearchedCoin(value);
+
     fetchPrice(value);
   };
 
@@ -83,9 +79,6 @@ const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
     setTransactionType("SELL");
     setSelectedCoin(value);
   };
-  useEffect(() => {
-    onPortfolioBalance(portfolioBalance)
-  }, [portfolioBalance])
 
   const handleModalSubmit = () => {
     let currentTransactionPrice = transactionPrice
@@ -93,40 +86,43 @@ const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
       : coinsInPortfolio[selectedCoin]?.[1];
     let currentTransactionQuantity = parseFloat(transactionQuantity);
 
-    let balanceToAdd = currentTransactionPrice * currentTransactionQuantity
-    let quantityChange = (transactionType === "BUY" ? currentTransactionQuantity : (currentTransactionQuantity * -1))
-    if (transactionType === "BUY") {
-      setPortfolioBalance((prevPortfolioBalance) => prevPortfolioBalance + balanceToAdd);
-    } else {
-      if (isSaleValid(Math.abs(quantityChange))) {
-        setPortfolioBalance((prevPortfolioBalance) => prevPortfolioBalance - balanceToAdd);
-        setShowAlert(false);
-        setAlertMessage("")
-      } else {
-        setShowAlert(true);
-        setIsModalVisible(false);
-        return;
+    let balanceToAdd = currentTransactionPrice * currentTransactionQuantity;
+    let quantityChange = (transactionType === "BUY" ? currentTransactionQuantity : (currentTransactionQuantity * -1));
 
-      }
-      setTransactionPrice("")
+    if ((transactionType === "BUY" && isSaleValid(quantityChange)) || (transactionType !== "BUY" && isSaleValid(Math.abs(quantityChange)))) {
+      setPortfolioBalance((prevPortfolioBalance) => {
+        return transactionType === "BUY" ? prevPortfolioBalance + balanceToAdd : prevPortfolioBalance - balanceToAdd;
+      });
+      setShowAlert(false);
+      setAlertMessage("");
+    } else {
+      setShowAlert(true);
+      setIsModalVisible(false);
+      return;
     }
+
+    setTransactionPrice("");
+
     setCoinsInPortfolio((prevCoinsInPortfolio) => {
       const newCoinsInPortfolio = { ...prevCoinsInPortfolio };
       let newQuantity = newCoinsInPortfolio[selectedCoin][2] + quantityChange;
       newCoinsInPortfolio[selectedCoin][2] = newQuantity;
       return newCoinsInPortfolio;
     });
-    onCoinsInPortfolio(coinsInPortfolio)
-    onPortfolioBalance(portfolioBalance)
+
+
     setTransactionType("");
     setIsModalVisible(false);
   };
 
   const isSaleValid = (amount) => {
-    console.log(amount, coinsInPortfolio[selectedCoin][2])
-    if (amount <= coinsInPortfolio[selectedCoin][2]) return true;
-    else if (amount > coinsInPortfolio[selectedCoin][2]) {
-      setAlertMessage("You only have " + String(coinsInPortfolio[selectedCoin][2]).slice(0, 6) + " " + selectedCoin + " in your portfolio!");
+    if (isNaN(amount) || amount <= 0.00000000000000000001) {
+      setAlertMessage(`Enter a valid ${transactionType === "SELL" ? "Sell" : "Buy"} quantity for ${selectedCoin}`);
+      return false;
+    } else if (transactionType === "BUY" || amount <= coinsInPortfolio[selectedCoin][2]) {
+      return true;
+    } else if (transactionType === "SELL" && amount > coinsInPortfolio[selectedCoin][2]) {
+      setAlertMessage(`You ${amount > 0 ? "only" : ""} have ${String(coinsInPortfolio[selectedCoin][2]).slice(0, 6)} ${selectedCoin} in your portfolio!`);
       return false;
     }
   }
@@ -137,8 +133,6 @@ const Portfolio = ({ onCoinsInPortfolio, onPortfolioBalance }) => {
         delete newCoinsInPortfolio[keyToDelete];
         return newCoinsInPortfolio;
       });
-      onCoinsInPortfolio(coinsInPortfolio)
-
       setShowAlert(false);
     } else if (coinsInPortfolio[keyToDelete][2] > 0) {
       setAlertMessage(`Sell your ${keyToDelete} before you can delete it!`);
