@@ -6,13 +6,10 @@ import { Typography, Space, Layout } from "antd";
 import {
   Navbar,
   Portfolio,
-  AddCoinForm,
   Homepage,
   Cryptocurrencies,
   CryptoDetails,
   News,
-  PortfolioHeader,
-  LoginButton,
 } from "./components";
 
 import "./App.css";
@@ -22,8 +19,6 @@ const App = () => {
   const [searchedPrice, setSearchedPrice] = useState(null); //State of price of the coin searched and selected to add to portfolio
   const [coinsList, setCoinsList] = useState([]); //List of coins fetched from api
   const [coinsInPortfolio, setCoinsInPortfolio] = useState({}); //coin name,searchedPrice, coin amount,current price, buy price
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCoin, setSelectedCoin] = useState(null); //coin selected: Buy/Sell
   const [transactionPrice, setTransactionPrice] = useState();
   const [transactionQuantity, setTransactionQuantity] = useState(1);
   const [portfolioBalance, setPortfolioBalance] = useState(0);
@@ -34,11 +29,9 @@ const App = () => {
   };
   const handleCoinsInPortfolio = (prop) => {
     setCoinsInPortfolio(prop);
-    // console.log("app", coinsInPortfolio);
   };
   const handlePortfolioBalance = (prop) => {
     setPortfolioBalance(prop);
-    // console.log("bal", prop);
   };
   const handlePortfolioChange = (newIdToken) => {
     console.log(newIdToken);

@@ -3,19 +3,17 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Button } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
 import { db } from '../firebase'
-import { getDocs, collection, addDoc, updateDoc, doc, setDoc } from 'firebase/firestore'
+import { getDocs, collection, updateDoc, doc, setDoc } from 'firebase/firestore'
 import { AppContext } from "../App";
 
 
 
 const LoginButton = () => {
   const { coinsInPortfolio, setCoinsInPortfolio, portfolioBalance, setPortfolioBalance } = useContext(AppContext);
-
   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims } = useAuth0();
   const [idToken, setIdToken] = useState(" ");
   const [listOfUsers, setListOfUsers] = useState([idToken]);
   const usersCollectionRef = collection(db, "users");
-  const [containsID, setContainsID] = useState(true);
 
   useEffect(() => {
     getToken()
@@ -26,7 +24,7 @@ const LoginButton = () => {
 
       let temp = idTokenClaims.sub.toString();
       setIdToken(temp)
-      console.log("getToken before", containsID, idToken, 9)
+      // console.log("getToken before", containsID, idToken, 9)
     } catch (error) {
       console.error('Error retrieving ID token:', error);
     }
@@ -35,7 +33,6 @@ const LoginButton = () => {
 
   useEffect(() => {
     const updateDatabase = async () => {
-      // let docid = listOfUsers.map((user) => console.log(user))
       try {
         // Update document in the database with the new values
         console.log('Database updated successfully', portfolioBalance);
@@ -74,8 +71,7 @@ const LoginButton = () => {
     }
 
     setListOfUsers(prevList => {
-      // console.log("Updated list of users", prevList);
-      // console.log("Does user exist : ", prevList.includes(idToken), idToken);
+
       if (!prevList.includes(idToken)) {
         addUser(idToken);
       } else {
@@ -89,9 +85,6 @@ const LoginButton = () => {
             return users;
           }
         })
-
-        let tempbalance = currUser[0]?.portfolioBalance ? currUser[0]?.portfolioBalance : currUser[1]?.portfolioBalance;
-        let tempCoins = currUser[0]?.coinInPortfolio ? currUser[0]?.coinInPortfolio : currUser[1]?.coinInPortfolio;
       }
       return prevList;
     });
@@ -125,4 +118,4 @@ const LoginButton = () => {
   )
 }
 
-export default LoginButton; // add this line to export the LoginButton component
+export default LoginButton; 

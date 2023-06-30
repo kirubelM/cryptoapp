@@ -16,4 +16,4 @@ const LogoutButton = () => {
   )
 }
 
-export default LogoutButton; // add this line to export the LoginButton component
+export default LogoutButton;

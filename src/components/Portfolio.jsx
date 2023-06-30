@@ -16,6 +16,7 @@ const Portfolio = () => {
   const [transactionType, setTransactionType] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
   useEffect(() => {
     const fetchCoins = async () => {
       try {
@@ -38,7 +39,6 @@ const Portfolio = () => {
         })
       );
     }
-    console.log("after:", coinsInPortfolio)
   }, [searchedPrice, searchedCoin]);
 
   const fetchPrice = async (coin) => {
@@ -49,10 +49,6 @@ const Portfolio = () => {
       const coinData = response.data[coin.toLowerCase()];
       if (coinData) {
         const { usd } = coinData;
-        const formattedNumber = new Intl.NumberFormat("en-US", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 8,
-        }).format(Number(usd));
         setSearchedPrice(usd);
       } else {
         console.log("Price data not available for the selected coin.");

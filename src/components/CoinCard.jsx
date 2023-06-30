@@ -1,6 +1,5 @@
 import React from "react";
-import { Card, Button } from "antd";
-import { AppContext } from "../App";
+import { Button } from "antd";
 
 const CoinCard = ({ coinKey, values, handleBuy, handleSell, handleDeleteCoin, coinsInPortfolio }) => {
 
@@ -23,7 +22,8 @@ const CoinCard = ({ coinKey, values, handleBuy, handleSell, handleDeleteCoin, co
         <h2>{coinKey}</h2>
       </div>
       <div className="right-div">
-        <p>$ {values[1]}</p>
+        { }
+        <p>$ {values[1].toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 20 })}</p>
         <div className="buy-sell-buttons">
           <Button
             id="coin-buy-button"

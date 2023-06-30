@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import icon from '../img/logo.png'
 import "./Navbar.css";
 import LoginButton from './LoginButton';
@@ -7,10 +7,8 @@ import Profile from './Profile';
 import { useAuth0 } from '@auth0/auth0-react'
 import { Modal } from 'antd';
 import Loader from './Loader'
-// import { AppContext } from "../App";
 
 const Navbar = (props) => {
-
   const [isOpen, setIsOpen] = useState(false);
   const handleNavClick = () => {
     setIsOpen(!isOpen);
@@ -32,14 +30,12 @@ const Navbar = (props) => {
       </div>
 
       <div className={`nav-toggle ${isOpen && "open"}`} onClick={handleNavClick}>
-        <div className="bar">
-
-        </div>
+        <div className="bar"> </div>
       </div>
       <div className={`nav-items ${isOpen && "open"}`} >
+        <a href="/portfolio" onClick={closeNav} className='nav-item'>Portfolio</a>
         <a href="/cryptocurrencies" onClick={closeNav} className='nav-item'>Cryptocurrencies</a>
         <a href="/news" onClick={closeNav} className='nav-item'>News</a>
-        <a href="/portfolio" onClick={closeNav} className='nav-item'>Portfolio</a>
         {error && <Modal>error</Modal>}
         {!error && isLoading && <Loader />}
         {!error && !isLoading && (

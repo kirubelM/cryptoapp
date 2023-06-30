@@ -41,9 +41,7 @@ const TransactionModal = ({
       <Typography>{transactionType === "BUY" ? "Buying " : " Selling "}<b>{selectedCoin}</b></Typography>
       <Form>
         <div className="portfolio-inputs">
-          <p>
-            {/* Coin: <b>{selectedCoin}</b> */}
-          </p>
+
           <b>Quantity</b>{" "}
           <Form.Item
             name="transactionQuantity"
@@ -58,8 +56,6 @@ const TransactionModal = ({
               onChange={(value) => setTransactionQuantity(value)}
             />
           </Form.Item>
-          {/* <p>
-          </p> */}
           <p>
             <b>Price Per Coin</b>{" "}          </p>
 
