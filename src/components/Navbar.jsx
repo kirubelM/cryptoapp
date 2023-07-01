@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import icon from '../img/logo.png'
 import "./Navbar.css";
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
-import Profile from './Profile';
+import LoginButton from './UserComponents/LoginButton';
+import LogoutButton from './UserComponents/LogoutButton';
+import Profile from './UserComponents/Profile';
 import { useAuth0 } from '@auth0/auth0-react'
 import { Modal } from 'antd';
 import Loader from './Loader'

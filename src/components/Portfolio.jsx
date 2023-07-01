@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import PortfolioHeader from "./PortfolioHeader";
-import SearchBar from "./SearchBar";
-import CoinCard from "./CoinCard";
+import PortfolioHeader from "./PortfolioCompnents/PortfolioHeader";
+import SearchBar from "./PortfolioCompnents/SearchBar";
+import CoinCard from "./PortfolioCompnents/CoinCard";
 import { Alert } from 'antd'
-import TransactionModal from "./TransactionModal";
+import TransactionModal from "./PortfolioCompnents/TransactionModal";
 import { AppContext } from "../App";
 
 const Portfolio = () => {
