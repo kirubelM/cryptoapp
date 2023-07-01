@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Typography, Space, Layout } from "antd";
-// import { Auth } from "./components/auth";
 
 import {
   Navbar,
@@ -64,8 +63,6 @@ const App = () => {
           handleNavClick={changeNav}
           portfolioBalance={portfolioBalance}
           coinsInPortfolio={coinsInPortfolio}
-          // onPortfolioChange={handlePortfolioChange}
-          // sendCoinInPortfolio={handleCoinsInPortfolio}
           sendCoinsInPortfolioApp={handlePortfolioChange}
         />
         <div className="main">
@@ -89,21 +86,17 @@ const App = () => {
                   path="/Portfolio"
                   element={
                     <Portfolio
-                      // coinsInPortfoliofromApp={coinsInPortfolio}
                       portfolioBalance={portfolioBalance}
                       onCoinsInPortfolio={handleCoinsInPortfolio}
                       {...{
                         onCoinsInPortfolio: handleCoinsInPortfolio,
                         onPortfolioBalance: handlePortfolioBalance,
-                        // onSearchedCoin: handeSearchedCoin,
                       }}
                     />
                   }></Route>
               </Routes>
             </div>
           </Layout>
-          {/* <PortfolioHeader /> */}
-          {/* <Homepage /> */}
         </div>
         <div className="footer">
           <Space>

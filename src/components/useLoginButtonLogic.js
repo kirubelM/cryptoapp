@@ -22,6 +22,7 @@ const useLoginButtonLogic = () => {
   const [idToken, setIdToken] = useState(" ");
   const [listOfUsers, setListOfUsers] = useState([idToken]);
   const usersCollectionRef = collection(db, "users");
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     getToken();
@@ -32,6 +33,7 @@ const useLoginButtonLogic = () => {
       const idTokenClaims = await getIdTokenClaims();
       let temp = idTokenClaims.sub.toString();
       setIdToken(temp);
+      setUserName(idTokenClaims.name); // Add this line to set the user name
     } catch (error) {
       console.error("Error retrieving ID token:", error);
     }
@@ -43,6 +45,7 @@ const useLoginButtonLogic = () => {
         await updateDoc(doc(db, "users", idToken), {
           coinInPortfolio: coinsInPortfolio,
           portfolioBalance: portfolioBalance,
+          userName: userName,
         });
 
         console.log("Database updated successfully");
