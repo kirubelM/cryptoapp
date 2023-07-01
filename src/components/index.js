@@ -1,4 +1,4 @@
-export { default as LoginButton } from "./UserComponents/LoginButton";
+export { default as LoginButton } from "./UserProfileComponents/LoginButton";
 export { default as Navbar } from "./Navbar";
 export { default as Cryptocurrencies } from "./Cryptocurrencies";
 export { default as CryptoDetails } from "./CryptoDetails";
