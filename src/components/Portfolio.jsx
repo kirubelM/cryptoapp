@@ -118,7 +118,7 @@ const Portfolio = () => {
     } else if (transactionType === "BUY" || amount <= coinsInPortfolio[selectedCoin][2]) {
       return true;
     } else if (transactionType === "SELL" && amount > coinsInPortfolio[selectedCoin][2]) {
-      setAlertMessage(`You ${amount > 0 ? "only" : ""} have ${String(coinsInPortfolio[selectedCoin][2]).slice(0, 6)} ${selectedCoin} in your portfolio!`);
+      setAlertMessage(`You ${amount > 0 ? "only" : ""} have ${String(coinsInPortfolio[selectedCoin][2]).slice(0, 12)} ${selectedCoin} in your portfolio!`);
       return false;
     }
   }

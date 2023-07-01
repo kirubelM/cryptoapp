@@ -4,7 +4,7 @@ const PortfolioHeader = ({ portfolioBalance }) => {
   return (
     <Statistic
       title="Portfolio Balance in USD"
-      value={portfolioBalance.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 20 })}
+      value={portfolioBalance.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
       precision={2}
       valueStyle={{ color: "#3f8600" }}
       prefix="$"
